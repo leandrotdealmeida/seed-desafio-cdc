@@ -1,5 +1,7 @@
 package com.casadocodigo.dto;
 
+import com.casadocodigo.domain.Autor;
+
 import javax.validation.constraints.*;
 
 public class AdicionarAutorDTO {
@@ -12,5 +14,9 @@ public class AdicionarAutorDTO {
     @NotBlank(message = "Campo descricao não pode estar vazio ou nulo")
     @Size(message = "Campo descrição ultrassou o limite máximo de 400 caracteres", max = 400)
     public String descricao;
+
+    public Autor converter() {
+        return new Autor(nome, email, descricao);
+    }
 
 }

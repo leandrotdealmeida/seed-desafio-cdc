@@ -9,22 +9,21 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/autor")
+@Path("/autores")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class AutorController {
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public List<Autor> findAll() {
+    public List<Autor> buscar() {
         return Autor.findAll().list();
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public void cadastrar(@Valid AdicionarAutorDTO request) {
-        Autor autor = new Autor(request);
+    public void adicionar(@Valid AdicionarAutorDTO request) {
+        Autor autor = request.converter();
         autor.persist();
     }
 }

@@ -3,6 +3,7 @@ package com.casadocodigo.domain;
 import com.casadocodigo.dto.AdicionarAutorDTO;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -17,13 +18,15 @@ public class Autor extends PanacheEntity {
     public String descricao;
     @CreationTimestamp
     public Instant dataCriacao;
+    @UpdateTimestamp
+    public Instant dataAtualizacao;
 
     public Autor() {
     }
 
-    public Autor(AdicionarAutorDTO dto) {
-        this.nome = dto.nome;
-        this.email = dto.email;
-        this.descricao = dto.descricao;
+    public Autor(String nome, String email, String descricao) {
+        this.nome = nome;
+        this.email = email;
+        this.descricao = descricao;
     }
 }
