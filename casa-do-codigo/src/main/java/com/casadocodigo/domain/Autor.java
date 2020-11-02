@@ -1,6 +1,5 @@
 package com.casadocodigo.domain;
 
-import com.casadocodigo.dto.AdicionarAutorDTO;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.smallrye.common.constraint.Assert;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,8 +29,7 @@ public class Autor extends PanacheEntity {
     @UpdateTimestamp
     public Instant dataAtualizacao;
 
-    public Autor() {
-    }
+    public Autor() { }
 
     public Autor(@NotBlank String nome,
                  @NotBlank @Email String email,
