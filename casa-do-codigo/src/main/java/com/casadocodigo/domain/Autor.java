@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
 import java.time.Instant;
 
 @Entity
-@Table(name = "autor")
 public class Autor extends PanacheEntity {
 
     @NotBlank
@@ -42,3 +41,5 @@ public class Autor extends PanacheEntity {
     }
 
 }
+
+
