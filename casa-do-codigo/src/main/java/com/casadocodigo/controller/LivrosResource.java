@@ -1,8 +1,9 @@
 package com.casadocodigo.controller;
-import com.casadocodigo.domain.Categoria;
-import com.casadocodigo.dto.NovaCategoriaRequest;
+import com.casadocodigo.domain.Livro;
+import com.casadocodigo.dto.NovoLivroRequest;
 
 import javax.inject.Inject;
+
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
@@ -15,32 +16,33 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
-@Path("/categorias")
+@Path("/livros")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class CategoriasController {
+public class LivrosResource {
 
     @Inject
     Validator validator;
 
     @GET
-    public List<Categoria> buscar() {
-        return Categoria.listAll();
+    public List<Livro> buscar() {
+        return Livro.listAll();
     }
 
     @POST
     @Transactional
-    public Response adicionar(@Valid NovaCategoriaRequest request, Function<Set<ConstraintViolation<Categoria>>, Response> retornarErros) {
+    public Response cadastrarLivro(@Valid NovoLivroRequest request, Function<Set<ConstraintViolation<Livro>>, Response> function) {
 
-        Categoria categoria = request.toModel();
-        Set<ConstraintViolation<Categoria>> violations = validator.validate(categoria);
-        
+        Livro livro = request.toModel();
+        Set<ConstraintViolation<Livro>> violations = validator.validate(livro);
+
         if (violations.isEmpty()) {
-            categoria.persist();
+            livro.persist();
             return Response.status(Status.CREATED).build();
-        } else {
-            return retornarErros.apply(violations);
-        }
 
+        } else {
+            return function.apply(violations);
+
+        }
     }
 }
